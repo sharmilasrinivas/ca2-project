@@ -15,11 +15,7 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const token = await getToken(
-          "E0323014",
-          "307864",
-          "A"
-        );
+        const token = await getToken("E0323014", "307864");
 
         const data = await getOrders(token);
 
@@ -33,13 +29,7 @@ export const AppProvider = ({ children }) => {
   }, []);
 
   return (
-    <AppContext.Provider
-      value={{
-        orders: state.orders,
-        loading: state.loading,
-        dispatch, 
-      }}
-    >
+    <AppContext.Provider value={{ state, dispatch }}>
       {children}
     </AppContext.Provider>
   );

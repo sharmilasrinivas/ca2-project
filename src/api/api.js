@@ -1,23 +1,20 @@
 import axios from "axios";
 
-const BASE_URL = " https://t4e-testserver.onrender.com/api";
+const BASE_URL = "https://t4e-testserver.onrender.com/api";
 
-export const getToken = async (studentId, password, set) => {
-  const { data } = await axios.post(`${BASE_URL}/public/token`, {
-    studentId,
-    password,
-    set,
+export const getToken = async (id, password) => {
+  const res = await axios.post(`${BASE_URL}/public/token`, {
+    studentId: id,
+    password: password,
   });
-
-  return data;
+  return res.data.token;
 };
 
-export const getDataset = async (token, dataUrl) => {
-  const { data } = await axios.get(`${BASE_URL}${dataUrl}`, {
+export const getOrders = async (token) => {
+  const res = await axios.get(`${BASE_URL}/private/data`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-
-  return data.data;
+  return res.data;
 };
